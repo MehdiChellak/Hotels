@@ -19,3 +19,12 @@
  
     <input type="submit" name="submit_address">
 </form>
+
+
+<form method="POST">
+    <p>
+        <input type="text" name="address" placeholder="Enter address">
+    </p>
+ 
+    <input type="submit" name="submit_address">
+</form>
