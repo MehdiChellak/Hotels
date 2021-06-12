@@ -49,9 +49,17 @@ function showPosition(position) {
         });
         
         tiles.addTo(carte); 
-
-        var marqueur = L.marker([lat,long]).addTo(carte);
-        marqueur.bindPopup("<h1>Vous étes ici</h1>");
+        //list point 
+        var locations = [
+      ['Sefrou',33.829262, -4.839340,3],
+      ['Barcelo', 45.75, 4.85, 2],
+      ['Rpyal Mirage', 43.3, 5.40, 1],
+      ['Vous étes ici',lat,long, 0],
+    ];
+    for (i = 0; i < locations.length; i++) {
+        var marqueur = L.marker([locations[i][1],locations[i][2]]).addTo(carte);
+        marqueur.bindPopup(locations[i][0]);
+    }
 }
 
 </script>
