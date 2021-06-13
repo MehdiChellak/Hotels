@@ -3,8 +3,8 @@
 require_once __DIR__.'/vendor/autoload.php';
 // connection neo4j
 $client = Laudis\Neo4j\ClientBuilder::create()
-    ->addHttpConnection('backup', 'http://neo4j:raja@localhost')
-    ->addBoltConnection('default', 'bolt://neo4j:raja@localhost')
+    ->addHttpConnection('backup', 'http://neo4j:1234@localhost')
+    ->addBoltConnection('default', 'bolt://neo4j:1234@localhost')
     ->setDefaultConnection('default')
     ->build();
 
@@ -20,6 +20,15 @@ $client = Laudis\Neo4j\ClientBuilder::create()
     foreach($result as $hotel)
     {
         echo $hotel->get("hotels");
+        echo $hotel->get("lat");
+        echo $hotel->get("long");
     }
-echo "salam akelb ";
-    
+?>
+<script>
+    var variableRecuperee = <?php echo json_encode($result); ?>;
+    console.log(variableRecuperee);
+    console.log(variableRecuperee.length);
+    for(i=0;i<variableRecuperee.length;i++){
+        console.log("lat est",variableRecuperee[i]["lat"]);
+    }
+</script>
