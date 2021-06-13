@@ -21,5 +21,12 @@ $client = Laudis\Neo4j\ClientBuilder::create()
     {
         echo $hotel->get("hotels");
     }
-echo "salam akelb ";
+
+    $location = [
+        ['Sefrou',33.829262, -4.839340,3],
+        ['Barcelo', 45.75, 4.85, 2],
+        ['Rpyal Mirage', 43.3, 5.40, 1],
+        
+      ];
+      var_dump($location);
     
