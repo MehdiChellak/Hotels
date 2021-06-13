@@ -15,11 +15,14 @@ $client = Laudis\Neo4j\ClientBuilder::create()
     match(l:hotel)
     where distance(l.point, poi) < 1000
     return distance(l.point, poi) as distance ,l.name as hotels, l.point.latitude as lat , l.point.longitude as long
-    order by distance desc'); 
+    order by distance desc');
+    
     
     foreach($result as $hotel)
     {
         echo $hotel->get("hotels");
+        echo $hotel->get("lat");
+        echo $hotel->get("long");
     }
 
     $location = [
@@ -30,3 +33,12 @@ $client = Laudis\Neo4j\ClientBuilder::create()
       ];
       var_dump($location);
     
+?>
+<script>
+    var variableRecuperee = <?php echo json_encode($result); ?>;
+    console.log(variableRecuperee);
+    console.log(variableRecuperee.length);
+    for(i=0;i<variableRecuperee.length;i++){
+        console.log("lat est",variableRecuperee[i]["lat"]);
+    }
+</script>
