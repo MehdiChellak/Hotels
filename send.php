@@ -32,33 +32,6 @@
 </body>
 
 <script>
-
-// var x = document.getElementById("demo");
-// var lat;
-// var long;
-// function getLocation() {
-//   if (navigator.geolocation) {
-//     var lat = navigator.geolocation.getCurrentPosition(showPosition);
-    
-//   } else { 
-//     x.innerHTML = "Geolocation is not supported by this browser.";
-//   }
-// }
-
-// function showPosition(position) {
-//   lat=position.coords.latitude;
-//   long=position.coords.longitude;
-
-//   $.ajax({
-//    url: 'index.php?action=map',
-//    type: 'post',
-//    data: {latitude:lat ,longitude: long}
-// });
-
-// }
-
-
-
 let getLocationPromise = new Promise((resolve, reject) => {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -89,9 +62,6 @@ getLocationPromise.then((location) => {
 }).catch((err) => {
     console.log(err)
 })
-
-
-
 </script>
 
 

@@ -10,8 +10,8 @@ if($action=="map")
 {
     $clientLatitude = $_POST['latitude'];
     $clientLongitude =$_POST['longitude'];
-    $locations = getNodesWithDisatance($clientLatitude,$clientLatitude);
-    //print_r($locations);
+    $clientName = $_POST["nom"]." ".$_POST['prenom'];
+    $locations = getNodesWithDisatance($clientLatitude,$clientLongitude);
     include("map.php");
 }
 elseif($action == "ss")

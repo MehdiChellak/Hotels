@@ -24,19 +24,23 @@ function getNodesWithDisatance($latC,$longC)
 {
     
     $client = connection();
+    
+     $req = "with point( {latitude:$latC, longitude:$longC }) as poi
+     match(l:hotel)
+     return distance(l.point, poi) as distance ,l.name as hotels, l.point.latitude as lat , l.point.longitude as long
+     order by distance asc";
         // envoie requette {latitude:34.0426721, longitude:-4.9956895 }  where distance(l.point, poi) < 10000
-        $result = $client->run("with point( {latitude:34.0426721, longitude:-4.9956895,crs: 'wgs-84' }) as poi
-        match(l:hotel)
-        return distance(l.point, poi)/1000000 as distance ,l.name as hotels, l.point.latitude as lat , l.point.longitude as long
-        order by distance desc");
+        echo $req;
+        $result = $client->run($req);
+        
         foreach($result as $key){
+            echo "<br>";
             echo $key->get("hotels");
             echo $key->get("distance");
-            //echo $key->get("long");
             echo "<br>";
         }
-    return $result;
         
+        return $result;
 }
 
 

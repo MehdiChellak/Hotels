@@ -26,8 +26,14 @@
 
 <script>
 
+  
+var latClient  = <?php echo json_encode($clientLatitude); ?>;
+    var longClient  = <?php echo json_encode($clientLongitude); ?>;
+    var Prenom = <?php echo json_encode($clientLongitude); ?>;
+    var nomClient = <?php echo json_encode($clientName); ?>;
+
 var x = document.getElementById("demo");
-var carte = L.map('mapid').setView([34.026291199999996, -5.0069504], 18);
+var carte = L.map('mapid').setView([latClient, longClient], 15);
   var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery ©️ <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
@@ -37,20 +43,42 @@ var carte = L.map('mapid').setView([34.026291199999996, -5.0069504], 18);
             accessToken: 'pk.eyJ1IjoibWVoZGk3ODk5NSIsImEiOiJja3BoZzJweGgycW8zMzFueDJ6YW9xY3oxIn0.j33pkXgBnB3ln2pNTfLCDQ'
         });
     tiles.addTo(carte);
-    var marqueur = L.marker([34.026291199999996,-5.0069504]).addTo(carte);
-    marqueur.bindPopup("hotels");
 
     
+
+
+
+    var user = L.icon({ //add this new icon
+                iconUrl: 'images/user.png',
+                iconSize:     [35, 50], // size of the icon
+                shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+            var marqueur = L.marker([latClient ,longClient ], {icon:user}).addTo(carte);
+        marqueur.bindPopup(nomClient);
     var locations = <?php echo json_encode($locations); ?>;
-    // console.log(locations);
-    // console.log(locations.length);
-    // for(i=0;i<locations.length;i++){
-    //     console.log("lat est",locations[i]["lat"]);
-    // }
+   
 
     for (i = 0; i < locations.length; i++) {
+      if (i<=2)
+      {
         var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]]).addTo(carte);
         marqueur.bindPopup(locations[i]["hotels"]);
+      }else
+      {
+        var blackIcone = L.icon({ //add this new icon
+                iconUrl: 'images/red.png',
+                iconSize:     [35, 50], // size of the icon
+                shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                shadowAnchor: [4, 62],  // the same for the shadow
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+            var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]], {icon:blackIcone}).addTo(carte);
+        marqueur.bindPopup(locations[i]["hotels"]);
+      }      
     }
  
 </script>
