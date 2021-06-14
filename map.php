@@ -62,13 +62,16 @@ var carte = L.map('mapid').setView([latClient, longClient], 15);
    
 
     for (i = 0; i < locations.length; i++) {
-      if (i<=2)
+      console.log(locations[i]["lat"]);
+      console.log(locations[i]["hotels"])
+      if (i<=4)
       {
         var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]]).addTo(carte);
         marqueur.bindPopup(locations[i]["hotels"]);
-      }else
+      }
+      else
       {
-        var blackIcone = L.icon({ //add this new icon
+        var redIcon = L.icon({ //add this new icon
                 iconUrl: 'images/red.png',
                 iconSize:     [35, 50], // size of the icon
                 shadowSize:   [50, 64], // size of the shadow
@@ -76,7 +79,7 @@ var carte = L.map('mapid').setView([latClient, longClient], 15);
                 shadowAnchor: [4, 62],  // the same for the shadow
                 popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
             });
-            var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]], {icon:blackIcone}).addTo(carte);
+            var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]], {icon:redIcon}).addTo(carte);
         marqueur.bindPopup(locations[i]["hotels"]);
       }      
     }
