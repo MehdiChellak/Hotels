@@ -8,8 +8,6 @@ $action = isset($_GET['action'])?$_GET['action']:'';
 
 if($action=="map")
 {
-    
-    echo "salam";
     $locations = getNodesWithDisatance();
     include("map.php");
 }

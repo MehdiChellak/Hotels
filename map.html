@@ -13,7 +13,7 @@ var x = document.getElementById("demo");
 
 function getLocation() {
   if (navigator.geolocation) {
-    return navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
@@ -22,7 +22,7 @@ function getLocation() {
 function showPosition(position) {
   var lat =  position.coords.latitude;
   var long = position.coords.longitude;
-  return (lat,long);
+  
 }
 const  = getLocation();
 console.log(couple);

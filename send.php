@@ -1,12 +1,3 @@
-<?php 
-  
-  $locations = [
-    ['Sefrou',33.829262, -4.839340,3],
-    ['Barcelo', 45.75, 4.85, 2],
-    ['Rpyal Mirage', 43.3, 5.40, 1],
-  ];
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +19,7 @@
 
  <form action="index.php?action=map" method="post" > 
 
-<input type="submit" name ="click" onclick="getLocation()">Try It</input>
+<input type="submit" name ="click">Try It</input>
 
  </form> 
 

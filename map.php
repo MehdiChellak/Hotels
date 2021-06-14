@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +27,7 @@
 <script>
 
 var x = document.getElementById("demo");
-var carte = L.map('mapid').setView([lat,long], 18);
+var carte = L.map('mapid').setView([34.026291199999996, -5.0069504], 18);
   var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery ©️ <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
@@ -38,13 +36,23 @@ var carte = L.map('mapid').setView([lat,long], 18);
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoibWVoZGk3ODk5NSIsImEiOiJja3BoZzJweGgycW8zMzFueDJ6YW9xY3oxIn0.j33pkXgBnB3ln2pNTfLCDQ'
         });
-        
-    tiles.addTo(carte); 
-    var locations =  <?= $locations?>;
+    tiles.addTo(carte);
+    var marqueur = L.marker([34.026291199999996,-5.0069504]).addTo(carte);
+    marqueur.bindPopup("hotels");
+
+    
+    var locations = <?php echo json_encode($locations); ?>;
+    console.log(locations);
+    console.log(locations.length);
+    for(i=0;i<locations.length;i++){
+        console.log("lat est",locations[i]["lat"]);
+    }
+
     for (i = 0; i < locations.length; i++) {
         var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]]).addTo(carte);
         marqueur.bindPopup(locations[i]["hotels"]);
     }
+ 
 </script>
 
 </body>

@@ -29,14 +29,14 @@ function getNodesWithDisatance()
         where distance(l.point, poi) < 1000
         return distance(l.point, poi) as distance ,l.name as hotels, l.point.latitude as lat , l.point.longitude as long
         order by distance desc');
-    
+    return $result;
         
-        foreach($result as $key){
-            echo $key->get("hotels");
-            echo $key->get("lat");
-            echo $key->get("long");
-            echo "<br>";
-        }
+        // foreach($result as $key){
+        //     echo $key->get("hotels");
+        //     echo $key->get("lat");
+        //     echo $key->get("long");
+        //     echo "<br>";
+        // }
 }
 
 
