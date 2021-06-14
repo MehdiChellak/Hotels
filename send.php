@@ -15,10 +15,14 @@
 </head>
 <body>
 
-<p>Click the button to get your coordinates.</p>
+<p>welcome to your page home </p>
 
  <form action="index.php?action=map" method="post" > 
 
+<label for=""> nom  </label><input type="text" name="nom" id="nom"> <br>
+<label for=""> prenom  </label><input type="text" name="prenom" id="prenom"> <br>
+<label for="">  latitude </label><input type="text" name="latitude" id="latitude"> <br>
+<label for=""> longitude  </label><input type="text" name="longitude" id="longitude"> <br>
 <input type="submit" name ="click">Try It</input>
 
  </form> 
@@ -29,32 +33,62 @@
 
 <script>
 
-var x = document.getElementById("demo");
-var lat;
-var long;
-function getLocation() {
-  if (navigator.geolocation) {
-    var lat = navigator.geolocation.getCurrentPosition(showPosition);
+// var x = document.getElementById("demo");
+// var lat;
+// var long;
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     var lat = navigator.geolocation.getCurrentPosition(showPosition);
     
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+//   } else { 
+//     x.innerHTML = "Geolocation is not supported by this browser.";
+//   }
+// }
 
-function showPosition(position) {
-  lat=position.coords.latitude;
-  long=position.coords.longitude;
+// function showPosition(position) {
+//   lat=position.coords.latitude;
+//   long=position.coords.longitude;
 
-  // $.ajax({
-  //  url: 'connect.php',
-  //  type: 'post',
-  //  data: {latitude:65 ,654: long},
-  //  success: function(response){
-  //   content.html(response);
-  //  }
+//   $.ajax({
+//    url: 'index.php?action=map',
+//    type: 'post',
+//    data: {latitude:lat ,longitude: long}
 // });
 
-}
+// }
+
+
+
+let getLocationPromise = new Promise((resolve, reject) => {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            // console.log(position.coords.latitude, position.coords.longitude) //test...
+
+            lat = position.coords.latitude
+            long = position.coords.longitude
+
+            // console.log("LATLONG1: ", lat, long) //test...
+
+            // Resolving the values which I need
+            resolve({latitude: lat, 
+                    longitude: long})
+        })
+
+    } else {
+        reject("your browser doesn't support geolocation API")
+    }
+})
+
+// Now I can use the promise followed by .then() 
+// to make use of the values anywhere in the program
+getLocationPromise.then((location) => {
+  console.log(location.latitude)
+  document.getElementById("latitude").value = location.latitude;
+  document.getElementById("longitude").value = location.longitude;
+}).catch((err) => {
+    console.log(err)
+})
 
 
 

@@ -21,7 +21,7 @@
 
 
 <p id="demo"></p>
-<div id="mapid" style="width:1200px; height:800px;"></div>
+<div id="mapid" style="width:1400px; height:600px;"></div>
 </body>
 
 <script>
@@ -42,11 +42,11 @@ var carte = L.map('mapid').setView([34.026291199999996, -5.0069504], 18);
 
     
     var locations = <?php echo json_encode($locations); ?>;
-    console.log(locations);
-    console.log(locations.length);
-    for(i=0;i<locations.length;i++){
-        console.log("lat est",locations[i]["lat"]);
-    }
+    // console.log(locations);
+    // console.log(locations.length);
+    // for(i=0;i<locations.length;i++){
+    //     console.log("lat est",locations[i]["lat"]);
+    // }
 
     for (i = 0; i < locations.length; i++) {
         var marqueur = L.marker([locations[i]["lat"],locations[i]["long"]]).addTo(carte);
