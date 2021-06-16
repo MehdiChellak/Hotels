@@ -6,10 +6,10 @@ function connection()
     try
     {
         $client = Laudis\Neo4j\ClientBuilder::create()
-->addHttpConnection('backup', 'http://neo4j:raja@localhost')
-->addBoltConnection('default', 'bolt://neo4j:raja@localhost')
-->setDefaultConnection('default')
-->build();
+        ->addHttpConnection('backup', 'http://neo4j:1234@localhost')
+        ->addBoltConnection('default', 'bolt://neo4j:1234@localhost')
+        ->setDefaultConnection('default')
+        ->build();
     }catch(Exeption $e)
     {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -25,34 +25,35 @@ function getNodesWithDisatance($latC,$longC)
     
     $client = connection();
     
-     $req = "with point( {latitude:$latC, longitude:$longC }) as poi
+     $req = "with point( {latitude:, longitude: }) as poi
      match(l:hotels)
-     return distance(l.point, poi) as distance ,l.nom as hotels, l.point.latitude as lat , l.point.longitude as long
-     order by distance asc";
-        // envoie requette {latitude:34.0426721, longitude:-4.9956895 }  where distance(l.point, poi) < 10000
-        echo $req;
-        $result = $client->run($req);
+     return distance(l.point, poi)/1000 as distance ,l.nom as hotels, l.point.latitude as lat ,
+      l.point.longitude as long, id(l) as id,l.prix as prix,l.persons as per
+     order by distance asc
+     limit 25";
         
-         foreach($result as $key){
-        //     echo "<br>";
-             echo $key->get("hotels");
-        //     echo $key->get("distance");
-        //     echo "<br>";
-         }
-        
+         $result = $client->run($req);
         return $result;
 }
 
+    function getHotel($id)
+    {
+        $client = connection();
+        $req = "
+                match (h:hotels) 
+                where id(h) = $id
+                return h.nom as nom,h.stars as stars, h.desc as desc, h.
+                limit 1
+                ";
 
-
-
-?>
-<!-- <script>
-    var variableRecuperee = <?php echo json_encode($result); ?>;
-    console.log(variableRecuperee);
-    console.log(variableRecuperee.length);
-    for(i=0;i<variableRecuperee.length;i++){
-        console.log("lat est",variableRecuperee[i]["lat"]);
+        $result = $client->run($req);
+        $arr = $result->toArray();
+        return $result;
     }
-</script> -->
+
+
+   
+        
+    
+?>
 

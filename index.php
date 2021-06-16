@@ -12,11 +12,13 @@ if($action=="map")
     $clientLongitude =$_POST['longitude'];
     $clientName = $_POST["nom"]." ".$_POST['prenom'];
     $locations = getNodesWithDisatance($clientLatitude,$clientLongitude);
-    include("map.php");
+    
+    include("map2.php");
 }
-elseif($action == "ss")
+elseif($action == "getHotel")
 {
-    echo "ss";
+   $result =  getHotel(842);
+   
 }
 else{
     include("send.php");

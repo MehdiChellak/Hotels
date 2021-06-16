@@ -1,43 +1,28 @@
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-crossorigin="">
-</script>
-
-
-var x = document.getElementById("demo");
-var lat;
-var long;
-function getLocation(arr) {
-  if (navigator.geolocation) {
-    var lat = navigator.geolocation.getCurrentPosition(showPosition,arr);
-    
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-
-function showPosition(position,arr) {
-  /*x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;*/
-  
-  lat=position.coords.latitude;
-  long=position.coords.longitude;
-  var carte = L.map('mapid').setView([lat,long], 18);
-  var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery ©️ <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoibWVoZGk3ODk5NSIsImEiOiJja3BoZzJweGgycW8zMzFueDJ6YW9xY3oxIn0.j33pkXgBnB3ln2pNTfLCDQ'
-        });
-        
-    tiles.addTo(carte); 
-    var locations =  arr;
-    for (i = 0; i < locations.length; i++) {
-        var marqueur = L.marker([locations[i][1],locations[i][2]]).addTo(carte);
-        marqueur.bindPopup(locations[i][0]);
+// source: https://github.com/pointhi/leaflet-color-markers
+var greenIcon = new L.Icon({
+  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+L.Routing.control({
+  waypoints: [
+    L.latLng(57.74, 11.94),    // startmarker
+    L.latLng(57.6792, 11.949) // endmarker
+  ],
+  createMarker: function(i, wp, nWps) {
+    if (i === 0 || i === nWps - 1) {
+      // here change the starting and ending icons
+      return L.marker(wp.latLng, {
+        icon: greenIcon // here pass the custom marker icon instance
+      });
+    } else {
+      // here change all the others
+      return L.marker(wp.latLng, {
+        icon: greenIcon
+      });
     }
-}
-getLocation(jArray);
+  }
+}).addTo(map);
